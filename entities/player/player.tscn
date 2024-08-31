@@ -1,0 +1,75 @@
+[gd_scene load_steps=13 format=3 uid="uid://csa7k2n4c8f83"]
+
+[ext_resource type="Script" path="res://entities/player/player.gd" id="1_70bvi"]
+[ext_resource type="Script" path="res://entities/components/health_component.gd" id="2_h0dao"]
+[ext_resource type="Script" path="res://entities/components/hurtbox_component.gd" id="3_ay3cx"]
+[ext_resource type="Script" path="res://entities/components/velocity_component.gd" id="4_7m212"]
+[ext_resource type="Script" path="res://entities/player/components/player_input_component.gd" id="5_qibjy"]
+[ext_resource type="Script" path="res://entities/components/orientation_component.gd" id="6_goxhk"]
+[ext_resource type="Script" path="res://entities/components/player_aim_component.gd" id="7_n3q1g"]
+[ext_resource type="Script" path="res://entities/player/components/weapon_container.gd" id="8_1aie1"]
+[ext_resource type="PackedScene" uid="uid://qmp68e386kyo" path="res://entities/weapons/base_gun/base_gun.tscn" id="9_bm1iy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tfse4"]
+size = Vector2(14, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bdm3k"]
+size = Vector2(14, 24)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v4fit"]
+size = Vector2(14, 24)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_70bvi")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_h0dao")
+max_health = 10
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("3_ay3cx")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_tfse4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bdm3k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_v4fit")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 50, 0)
+width = 1.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="VeloctiyComponent" type="Node" parent="."]
+script = ExtResource("4_7m212")
+
+[node name="PlayerInputComponent" type="Node" parent="." node_paths=PackedStringArray("player", "velocity_component")]
+script = ExtResource("5_qibjy")
+player = NodePath("..")
+velocity_component = NodePath("../VeloctiyComponent")
+jump_speed = -550.0
+speed = 300.0
+
+[node name="OrientationComponent" type="Node" parent="."]
+script = ExtResource("6_goxhk")
+
+[node name="PlayerAimComponent" type="Node" parent="." node_paths=PackedStringArray("orientation_component", "player")]
+script = ExtResource("7_n3q1g")
+orientation_component = NodePath("../OrientationComponent")
+player = NodePath("..")
+
+[node name="WeaponContainer" type="Node2D" parent="." node_paths=PackedStringArray("weapon", "orientation_component")]
+script = ExtResource("8_1aie1")
+weapon = NodePath("BaseGun")
+orientation_component = NodePath("../OrientationComponent")
+
+[node name="BaseGun" parent="WeaponContainer" node_paths=PackedStringArray("shooter") instance=ExtResource("9_bm1iy")]
+shooter = NodePath("../..")
