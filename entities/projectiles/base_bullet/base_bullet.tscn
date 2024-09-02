@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6ljih7j1djag"]
+
+[ext_resource type="Script" path="res://entities/projectiles/base_bullet/base_bullet.gd" id="1_v008y"]
+[ext_resource type="Texture2D" uid="uid://duy5mtacdj8kt" path="res://entities/projectiles/base_bullet/assets/cat-bullet.png" id="2_ynyid"]
+[ext_resource type="Script" path="res://entities/components/velocity_component.gd" id="3_mw1ii"]
+[ext_resource type="Script" path="res://entities/components/orientation_component.gd" id="4_tfr48"]
+[ext_resource type="Script" path="res://entities/components/damage_component.gd" id="5_jlhsm"]
+[ext_resource type="Script" path="res://entities/projectiles/components/bullet_movement_component.gd" id="5_w3md6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u25fk"]
+size = Vector2(13, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w667v"]
+size = Vector2(13, 8.5)
+
+[node name="BaseProjectile" type="StaticBody2D"]
+collision_layer = 4
+script = ExtResource("1_v008y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_u25fk")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 1)
+amount = 20
+lifetime = 0.25
+direction = Vector2(-1, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = ExtResource("2_ynyid")
+
+[node name="VeloctiyComponent" type="Node" parent="."]
+script = ExtResource("3_mw1ii")
+
+[node name="OrientationComponent" type="Node" parent="."]
+script = ExtResource("4_tfr48")
+
+[node name="BulletMovementComponent" type="Node" parent="." node_paths=PackedStringArray("orientation_component", "velocity_component")]
+script = ExtResource("5_w3md6")
+orientation_component = NodePath("../OrientationComponent")
+velocity_component = NodePath("../VeloctiyComponent")
+speed = 400.0
+
+[node name="DamageComponent" type="Area2D" parent="."]
+script = ExtResource("5_jlhsm")
+damage = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent"]
+position = Vector2(-0.5, -1.25)
+shape = SubResource("RectangleShape2D_w667v")
+metadata/_edit_group_ = true

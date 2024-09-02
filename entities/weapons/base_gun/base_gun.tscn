@@ -16,6 +16,7 @@ texture = ExtResource("2_5tgdy")
 position = Vector2(8, -1)
 
 [node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="OrientationComponent" type="Node" parent="."]
 script = ExtResource("3_2ehtq")
