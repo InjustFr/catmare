@@ -1,10 +1,13 @@
-class_name BaseGun
+class_name Smg
 extends Weapon
 
 
-@onready var bullet_scene: PackedScene = preload("res://entities/projectiles/base_bullet/base_bullet.tscn")
+@onready var bullet_scene: PackedScene = preload("res://entities/projectiles/smg_bullet/smg_bullet.tscn")
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var orientation_component: OrientationComponent = $OrientationComponent
+
+
+const SPREAD: float = 20;
 
 
 func start_shooting() -> void:
@@ -17,7 +20,8 @@ func start_shooting() -> void:
 
 	cooldown_timer.start()
 
-	spawn_bullet(bullet_scene, orientation_component.orientation)
+	var spread_angle: float = randf_range(-SPREAD / 2, SPREAD / 2)
+	spawn_bullet(bullet_scene, orientation_component.orientation.rotated(deg_to_rad(spread_angle)))
 
 
 func stop_shooting() -> void:

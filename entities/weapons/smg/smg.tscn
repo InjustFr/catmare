@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs7uccka81b3y"]
+
+[ext_resource type="Script" path="res://entities/weapons/smg/smg.gd" id="1_3pyyi"]
+[ext_resource type="Texture2D" uid="uid://bi1kjwiviu6r5" path="res://entities/weapons/smg/assets/smg.png" id="2_8xgub"]
+[ext_resource type="Script" path="res://entities/components/orientation_component.gd" id="3_2eu5o"]
+
+[node name="Smg" type="Node2D" node_paths=PackedStringArray("bullet_spawn_point")]
+script = ExtResource("1_3pyyi")
+bullet_spawn_point = NodePath("Sprite2D/BulletSpawnPoint")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5, 1)
+texture = ExtResource("2_8xgub")
+
+[node name="BulletSpawnPoint" type="Marker2D" parent="Sprite2D"]
+position = Vector2(9, -2)
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="OrientationComponent" type="Node" parent="."]
+script = ExtResource("3_2eu5o")
