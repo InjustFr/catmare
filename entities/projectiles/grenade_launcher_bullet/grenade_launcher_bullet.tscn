@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://c8sl20nxhh0xj"]
+
+[ext_resource type="Script" path="res://entities/projectiles/grenade_launcher_bullet/grenade_launcher_bullet.gd" id="1_k40wi"]
+[ext_resource type="Texture2D" uid="uid://b2ad7rju5lrgo" path="res://entities/projectiles/smg_bullet/assets/smg-bullet.png" id="2_yyi0j"]
+[ext_resource type="Script" path="res://entities/components/velocity_component.gd" id="3_cbeak"]
+[ext_resource type="Script" path="res://entities/components/orientation_component.gd" id="4_6rfhn"]
+[ext_resource type="Script" path="res://entities/projectiles/components/bullet_movement_component.gd" id="5_i3pl6"]
+[ext_resource type="Script" path="res://entities/components/damage_component.gd" id="6_f5k7f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u25fk"]
+size = Vector2(13, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w667v"]
+size = Vector2(13, 8.5)
+
+[node name="GrenadeLauncherBullet" type="RigidBody2D"]
+collision_layer = 4
+mass = 0.01
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_k40wi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_u25fk")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 1)
+amount = 20
+lifetime = 0.25
+direction = Vector2(-1, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = ExtResource("2_yyi0j")
+
+[node name="VeloctiyComponent" type="Node" parent="."]
+script = ExtResource("3_cbeak")
+
+[node name="OrientationComponent" type="Node" parent="."]
+script = ExtResource("4_6rfhn")
+
+[node name="BulletMovementComponent" type="Node" parent="." node_paths=PackedStringArray("orientation_component", "velocity_component")]
+script = ExtResource("5_i3pl6")
+orientation_component = NodePath("../OrientationComponent")
+velocity_component = NodePath("../VeloctiyComponent")
+speed = 400.0
+
+[node name="DamageComponent" type="Area2D" parent="."]
+script = ExtResource("6_f5k7f")
+damage = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent"]
+position = Vector2(-0.5, -1.25)
+shape = SubResource("RectangleShape2D_w667v")

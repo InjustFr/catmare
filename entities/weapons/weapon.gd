@@ -8,11 +8,12 @@ extends Node2D
 
 func spawn_bullet(projectile_scene: PackedScene, orientation: Vector2) -> void:
 	var projectile: Node2D = projectile_scene.instantiate();
-	shooter.get_parent().add_child(projectile)
-	projectile.global_position = bullet_spawn_point.global_position
 
 	var projectile_orientation_component: OrientationComponent = Utils.get_component("OrientationComponent", projectile)
 	projectile_orientation_component.orientation = orientation
+
+	shooter.get_parent().add_child(projectile)
+	projectile.global_position = bullet_spawn_point.global_position
 
 
 func start_shooting() -> void:

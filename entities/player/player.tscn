@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://entities/components/orientation_component.gd" id="6_goxhk"]
 [ext_resource type="Script" path="res://entities/components/player_aim_component.gd" id="7_n3q1g"]
 [ext_resource type="Script" path="res://entities/player/components/weapon_container.gd" id="8_1aie1"]
-[ext_resource type="PackedScene" uid="uid://day0rqqbfktut" path="res://entities/weapons/shotgun/shotgun.tscn" id="9_k120d"]
+[ext_resource type="PackedScene" uid="uid://c8l6gsf8nb5t5" path="res://entities/weapons/grenade_launcher/grenade_launcher.tscn" id="9_iveo0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tfse4"]
 size = Vector2(14, 24)
@@ -68,8 +68,8 @@ player = NodePath("..")
 
 [node name="WeaponContainer" type="Node2D" parent="." node_paths=PackedStringArray("weapon", "orientation_component")]
 script = ExtResource("8_1aie1")
-weapon = NodePath("Shotgun")
+weapon = NodePath("GrenadeLauncher")
 orientation_component = NodePath("../OrientationComponent")
 
-[node name="Shotgun" parent="WeaponContainer" node_paths=PackedStringArray("shooter") instance=ExtResource("9_k120d")]
+[node name="GrenadeLauncher" parent="WeaponContainer" node_paths=PackedStringArray("shooter") instance=ExtResource("9_iveo0")]
 shooter = NodePath("../..")

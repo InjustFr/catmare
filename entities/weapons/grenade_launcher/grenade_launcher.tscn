@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8l6gsf8nb5t5"]
+
+[ext_resource type="Script" path="res://entities/weapons/grenade_launcher/grenade_launcher.gd" id="1_ljwk6"]
+[ext_resource type="Texture2D" uid="uid://40v5hd06p1t2" path="res://entities/weapons/grenade_launcher/assets/grenade_launcher.png" id="2_353kl"]
+[ext_resource type="Script" path="res://entities/components/orientation_component.gd" id="3_qtji2"]
+
+[node name="GrenadeLauncher" type="Node2D" node_paths=PackedStringArray("bullet_spawn_point")]
+script = ExtResource("1_ljwk6")
+bullet_spawn_point = NodePath("Sprite2D/BulletSpawnPoint")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(11, 0)
+texture = ExtResource("2_353kl")
+
+[node name="BulletSpawnPoint" type="Marker2D" parent="Sprite2D"]
+position = Vector2(4, -1)
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+
+[node name="OrientationComponent" type="Node" parent="."]
+script = ExtResource("3_qtji2")

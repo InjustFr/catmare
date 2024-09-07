@@ -8,5 +8,8 @@ extends Node
 @export var speed: float = 0
 
 
+func _ready() -> void:
+	velocity_component.velocity = orientation_component.orientation * speed
+
 func _process(_delta: float) -> void:
 	velocity_component.velocity = orientation_component.orientation * speed
