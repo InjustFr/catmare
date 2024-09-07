@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://entities/components/orientation_component.gd" id="6_goxhk"]
 [ext_resource type="Script" path="res://entities/components/player_aim_component.gd" id="7_n3q1g"]
 [ext_resource type="Script" path="res://entities/player/components/weapon_container.gd" id="8_1aie1"]
-[ext_resource type="PackedScene" uid="uid://bs7uccka81b3y" path="res://entities/weapons/smg/smg.tscn" id="9_3ax7a"]
+[ext_resource type="PackedScene" uid="uid://day0rqqbfktut" path="res://entities/weapons/shotgun/shotgun.tscn" id="9_k120d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tfse4"]
 size = Vector2(14, 24)
@@ -68,8 +68,8 @@ player = NodePath("..")
 
 [node name="WeaponContainer" type="Node2D" parent="." node_paths=PackedStringArray("weapon", "orientation_component")]
 script = ExtResource("8_1aie1")
-weapon = NodePath("Smg")
+weapon = NodePath("Shotgun")
 orientation_component = NodePath("../OrientationComponent")
 
-[node name="Smg" parent="WeaponContainer" node_paths=PackedStringArray("shooter") instance=ExtResource("9_3ax7a")]
+[node name="Shotgun" parent="WeaponContainer" node_paths=PackedStringArray("shooter") instance=ExtResource("9_k120d")]
 shooter = NodePath("../..")

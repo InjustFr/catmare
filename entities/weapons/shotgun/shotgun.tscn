@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://day0rqqbfktut"]
+
+[ext_resource type="Script" path="res://entities/weapons/shotgun/shotgun.gd" id="1_mldvp"]
+[ext_resource type="Texture2D" uid="uid://cxd1gsnv1s061" path="res://entities/weapons/shotgun/assets/shotgun.png" id="2_ewxk3"]
+[ext_resource type="Script" path="res://entities/components/orientation_component.gd" id="3_2eu5o"]
+
+[node name="Shotgun" type="Node2D" node_paths=PackedStringArray("bullet_spawn_point")]
+script = ExtResource("1_mldvp")
+bullet_spawn_point = NodePath("Sprite2D/BulletSpawnPoint")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 0)
+texture = ExtResource("2_ewxk3")
+
+[node name="BulletSpawnPoint" type="Marker2D" parent="Sprite2D"]
+position = Vector2(11, -1.5)
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+
+[node name="OrientationComponent" type="Node" parent="."]
+script = ExtResource("3_2eu5o")
